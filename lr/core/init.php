@@ -1,0 +1,30 @@
+<?php
+session_start();
+//need to turn this on not to send any error reporting to users
+//error_reporting(0);
+require 'database/connect.php';
+require 'functions/general.php';
+require 'functions/users.php';
+
+//cannot use basename(__file__) because it will always be where it is written and not whats uploading
+ $current_file = explode('/',$_SERVER['SCRIPT_NAME']);
+ $current_file = end($current_file);
+
+
+if (logged_in() === true) {
+    $session_user_id = $_SESSION['user_id'];
+    $user_data = user_data($session_user_id,'user_id', 'username', 'password', 'first_name', 'last_name', 'email', 'password_recover', 'type', 'allow_email', 'profile');
+    
+    if (user_active($user_data['username']) === false) {
+    	session_destroy();
+    	header('Location: index.php');
+    	exit();
+    }
+    if ($current_file !== 'changepassword.php' && $user_data['password_recover'] == 1) {
+    	header('Location: changepassword.php?force');
+    	exit();
+    }
+}
+
+$errors = array();
+?>

@@ -1,0 +1,9 @@
+.profile {
+	background: #f9f9f9;
+	border: 1px dashed #aaa;
+	padding: 10px;
+}
+
+.profile img {
+    width: 100%;
+}

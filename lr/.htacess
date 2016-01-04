@@ -1,0 +1,7 @@
+
+
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteCond %{REQUEST_FILENAME} -d
+
+RewriteRule ^(.*)$ lr/profile.php?username=$1
+
